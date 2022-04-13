@@ -21,3 +21,12 @@ router.get("/:userId", async (req, res, next) => {
     next(err);
   }
 });
+// posting a card to order models
+router.post("/", async (req, res, next) => {
+  try {
+    const cart = await Order.create(req.body.userId);
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
