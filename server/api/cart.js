@@ -1,0 +1,23 @@
+const router = require("express").Router();
+const {
+  models: { Order },
+} = require("../db");
+const Product = require("../db/models/Product");
+module.exports = router;
+
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: false,
+      },
+      include: {
+        model: Product,
+      },
+    });
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
