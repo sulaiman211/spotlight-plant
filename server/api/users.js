@@ -112,3 +112,36 @@ router.put('/:userId/cart', async (req, res, next) => {
     console.log(err);
   }
 });
+
+//PUT /api/users/:userId/order, set a cart to isFulfilled: true
+router.put('/:userId/order', async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: false,
+      },
+    });
+    await cart.update({ isFulfilled: true });
+  } catch (err) {
+    next(err);
+  }
+});
+
+//DELETE /api/users/:userId/cart/:orderId/:productId delete a orderProduct row (delete an item from cart)
+router.delete('/:userId/cart/:orderId/:productId', async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const productId = req.params.productId;
+    const singleOrderProduct = await OrderProduct.findOne({
+      where: {
+        orderId,
+        productId,
+      },
+    });
+    await singleOrderProduct.destroy();
+    res.send(singleOrderProduct);
+  } catch (err) {
+    console.log(err);
+  }
+});
