@@ -16,3 +16,13 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+//get a single user, and eager load its orders and orderProducts
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
