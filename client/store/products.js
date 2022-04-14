@@ -13,7 +13,7 @@ const _setProducts = (products) => {
 };
 
 // thunks creator 
-export const setproducts = () => {
+export const setProducts = () => {
   return async (dispatch) => {
     try {
       const {data: products } = await axios.get('api/products');

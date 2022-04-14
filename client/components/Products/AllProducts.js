@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { setproducts } from '../../store/products';
-import { useDispatch, useSelector } from 'react-redux'
-// import { Link } from 'react-redux-dom';
+import { setProducts } from '../../store/products';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const AllProducts = () => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => {
-    console.log('hellllllooooo' state.products)
-    return state.products;
-  }) || [];
-  
+  const products =
+    useSelector((state) => {
+      return state.products;
+    }) || [];
+
   useEffect(() => {
-    dispatch(setproducts());
+    dispatch(setProducts());
   }, []);
+
   return (
-    <div>
+    <div
+      // style={{
+      //   display: 'flex',
+      //   flexWrap: 'wrap',
+      //   alignItems: 'center',
+      //   justifyContent: 'space-evenly',
+      // }}
+    >
       {products === undefined || products === []
         ? 'No Product'
         : products.map((product) => {
             return (
-              <div>
+              <div >
                 <div>
                   <img src={product.imageURL} class="mask" />
                   <div>{product.name}</div>
                   <p>{product.description}</p>
-
+                  <div>{product.price}</div>
                   <div>
                     <Link to={`/products/${product.id}`} class="button">
                       View Product
@@ -37,5 +45,6 @@ const AllProducts = () => {
           })}
     </div>
   );
-}
+};
+
 export default AllProducts;
