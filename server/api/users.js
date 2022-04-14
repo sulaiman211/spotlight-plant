@@ -57,3 +57,31 @@ router.post('/:userId/cart', async (req, res, next) => {
     next(err);
   }
 });
+//POST /api/users/:userId/cart (FIND OR CREATE)
+router.post('/:userId/addToCart', async (req, res, next) => {
+  try {
+    //find a cart if it already exists, OR create a new cart if there is no cart for user/guest
+    const cart = await Order.findOrCreate({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: false,
+      },
+      include: {
+        model: Product,
+      },
+    });
+
+    req.body.orderId = cart[0].id;
+    console.log(req.body.orderId);
+
+    const newItem = await OrderProduct.create({
+      orderId: req.body.orderId,
+      productId: req.body.productId,
+      quantity: req.body.quantity,
+    });
+
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
