@@ -26,3 +26,34 @@ router.get('/:userId', async (req, res, next) => {
     next(err);
   }
 });
+//GET /api/users/:userId/cart, load an unfilled order (cart) based on the user's orders
+router.get('/:userId/cart', async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        isFulfilled: false,
+      },
+      include: {
+        model: Product,
+      },
+    });
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//POST /api/users/:userId/cart (CREATE A NEW CART)
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    const cart = await Order.create({
+      userId: req.params.userId,
+      isFulfilled: false,
+    });
+
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
