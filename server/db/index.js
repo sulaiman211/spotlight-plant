@@ -18,6 +18,6 @@ module.exports = {
     User,
     Product,
     Order,
-    orderProduct,
+    OrderProduct,
   },
 }
