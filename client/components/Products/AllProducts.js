@@ -17,12 +17,12 @@ const AllProducts = () => {
 
   return (
     <div
-      // style={{
-      //   display: 'flex',
-      //   flexWrap: 'wrap',
-      //   alignItems: 'center',
-      //   justifyContent: 'space-evenly',
-      // }}
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+      }}
     >
       {products === undefined || products === []
         ? 'No Product'
@@ -48,3 +48,4 @@ const AllProducts = () => {
 };
 
 export default AllProducts;
+
