@@ -28,9 +28,9 @@ const AllProducts = () => {
         ? 'No Product'
         : products.map((product) => {
             return (
-              <div >
+              <div>
                 <div>
-                  <img src={product.imageURL} class="mask" />
+                  <img src={product.imageURL} width="300" height="300" />
                   <div>{product.name}</div>
                   <p>{product.description}</p>
                   <div>{product.price}</div>
@@ -48,4 +48,3 @@ const AllProducts = () => {
 };
 
 export default AllProducts;
-
