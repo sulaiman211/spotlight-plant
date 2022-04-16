@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchSingleProduct } from '../../store/SingleProduct';
 import { useDispatch, useSelector } from 'react-redux';
+import { addCart, addToCart } from '../../store/order';
 
 const SingleProduct = (props) => {
   const [state, setState] = useState(1);
